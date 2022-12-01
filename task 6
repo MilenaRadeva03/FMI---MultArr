@@ -1,0 +1,63 @@
+#include <iostream>
+const int MAX_SIZE = 100;
+void inputArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cin >> arr[i][j];
+        }
+    }
+}
+void printArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cout << arr[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+void transMatrix(int(*arr)[MAX_SIZE], int row, int col)
+{
+    if (row > col)
+    {
+        for (int j = 0; j < col;j++)
+        {
+            for (int i = j;i < row;i++)
+            {
+                int c = arr[i][j];
+                arr[i][j] = arr[j][i];
+                arr[j][i] = c;
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < row;i++)
+        {
+            for (int j = i;j < col;j++)
+            {
+                int c = arr[i][j];
+                arr[i][j] = arr[j][i];
+                arr[j][i] = c;
+            }
+        }
+    }
+}
+
+int main()
+{
+    int row1, col1;
+    std::cin >> row1 >> col1;
+    int arr1[MAX_SIZE][MAX_SIZE];
+    inputArr(arr1, row1, col1);
+    printArr(arr1, row1, col1);
+    transMatrix(arr1, row1, col1);
+    std::cout << std::endl;
+    printArr(arr1, col1, row1);
+    return 0;
+}
