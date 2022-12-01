@@ -1,0 +1,66 @@
+#include <iostream>
+const int MAX_SIZE = 100;
+void inputArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cin >> arr[i][j];
+        }
+    }
+}
+void printArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cout << arr[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+bool isPrime(int n)
+{
+    if (n == 1 || n == 0)
+    {
+        return false;
+    }
+    double x = sqrt(n);
+    for (int i = 2; i <= x;i++)
+    {
+        if (n % i == 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+int countPrimeEl(int(*arr)[MAX_SIZE], int row, int col)
+{
+    int counter = 0;
+    for (int i = 0; i < row;i++)
+    {
+        for (int j = i;j < col;j++)
+        {
+            if (isPrime(arr[i][j]))
+            {
+                counter++;
+            }
+        }
+    }
+    return counter;
+}
+
+int main()
+{
+    int row1, col1;
+    std::cin >> row1 >> col1;
+    int arr1[MAX_SIZE][MAX_SIZE];
+    inputArr(arr1, row1, col1);
+    printArr(arr1, row1, col1);
+    std::cout << std::endl;
+    std::cout << countPrimeEl(arr1, row1, col1);
+    return 0;
+}
