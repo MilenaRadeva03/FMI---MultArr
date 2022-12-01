@@ -1,0 +1,81 @@
+#include <iostream>
+const int MAX_SIZE = 100;
+void inputArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cin >> arr[i][j];
+        }
+    }
+}
+void printArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cout << arr[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+void maxSumRowAndCol(int(*arr)[MAX_SIZE], int row, int col)
+{
+    if (row != col)
+    {
+        throw"This isn`t square matrix!";
+    }
+    int maxRowInd = 0;
+    int maxColInd = 0;
+    int maxSumR = INT_MIN;
+    int maxSumC = INT_MIN;
+    for (int i = 0;i < row;i++)
+    {
+        int sum = 0;
+        for (int j = 0;j < col;j++)
+        {
+
+            sum = sum + arr[i][j];
+        }
+        if (sum > maxSumR)
+        {
+            maxSumR = sum;
+            maxRowInd = i;
+        }
+    }
+    for (int j = 0;j < col;j++)
+    {
+        int sum1 = 0;
+        for (int i = 0;i < row;i++)
+        {
+            sum1 = sum1 + arr[i][j];
+        }
+        if (sum1 > maxSumC)
+        {
+            maxSumC = sum1;
+            maxColInd = j;
+        }
+    }
+    std::cout << "Row->" << maxRowInd << " " << "Col->" << maxColInd;
+}
+
+int main()
+{
+    int row1, col1;
+    std::cin >> row1 >> col1;
+    int arr1[MAX_SIZE][MAX_SIZE];
+    inputArr(arr1, row1, col1);
+    try
+    {
+        maxSumRowAndCol(arr1, row1, col1);
+        std::cout << std::endl;
+        printArr(arr1, row1, col1);
+    }
+    catch (const char* e)
+    {
+        std::cout << e;
+    }
+    return 0;
+}
