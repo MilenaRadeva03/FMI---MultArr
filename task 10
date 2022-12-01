@@ -1,0 +1,65 @@
+#include <iostream>
+const int MAX_SIZE = 100;
+void inputArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cin >> arr[i][j];
+        }
+    }
+}
+void printArr(int(*arr)[MAX_SIZE], int row, int col)
+{
+    for (int i = 0;i < row;i++)
+    {
+        for (int j = 0;j < col;j++)
+        {
+            std::cout << arr[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+int elementOfMultMatrix(int(*arr1)[MAX_SIZE], int row1, int col1, int(*arr2)[MAX_SIZE], int row2, int col2, int a, int b)
+{
+    int result = 0;
+    for (int j = 0;j < col1;j++)
+    {
+        result = result + arr1[a][j] * arr2[j][b];
+    }
+    return result;
+}
+void multMatrix(int(*arr1)[MAX_SIZE], int row1, int col1, int(*arr2)[MAX_SIZE], int row2, int col2, int(*arrRes)[MAX_SIZE])
+{
+    if (col1 != row2)
+    {
+        throw "this multiply isn`t valid!";
+    }
+    for (int i = 0; i < row1;i++)
+    {
+        for (int j = 0;j < col2;j++)
+        {
+            arrRes[i][j] = elementOfMultMatrix(arr1, row1, col1, arr2, row2, col2, i, j);
+        }
+    }
+}
+
+int main()
+{
+    int row1, col1;
+    std::cin >> row1 >> col1;
+    int arr1[MAX_SIZE][MAX_SIZE];
+    inputArr(arr1, row1, col1);
+
+    int row2, col2;
+    std::cin >> row2 >> col2;
+    int arr2[MAX_SIZE][MAX_SIZE];
+    inputArr(arr2, row2, col2);
+
+    int arrRes[MAX_SIZE][MAX_SIZE];
+    multMatrix(arr1, row1, col1, arr2, row2, col2, arrRes);
+    std::cout << std::endl;
+    printArr(arrRes, row1, col2);
+    return 0;
+}
